@@ -2,6 +2,7 @@ package com.guven.salattime;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -11,6 +12,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ViewFlipper viewFlipper;
     private ImageButton buttonNext, buttonPrevious;
+    LinearLayout settingsBtn,calendarBtn,compassBtn;
 
     private static final int LOCATION_PERMISSON_REQUEST_CODE = 100;
     LocationHelper locationHelper;
@@ -69,6 +72,22 @@ public class MainActivity extends AppCompatActivity {
         viewFlipper = findViewById(R.id.viewFlipper);
         buttonNext = findViewById(R.id.imageNext);
         buttonPrevious = findViewById(R.id.imagePervious);
+        settingsBtn = findViewById(R.id.settingsBtn);
+        calendarBtn = findViewById(R.id.calendarBtn);
+        compassBtn = findViewById(R.id.compassBtn);
+
+        settingsBtn.setOnClickListener(v -> {
+            Intent i = new Intent(MainActivity.this,SettingsActivity.class);
+            startActivity(i);
+        });
+        calendarBtn.setOnClickListener(v -> {
+            Intent i = new Intent(MainActivity.this,CalendarActivity.class);
+            startActivity(i);
+        });
+        compassBtn.setOnClickListener(v -> {
+            Intent i = new Intent(MainActivity.this, QiblaActivity.class);
+            startActivity(i);
+        });
 
         //Animasyonları set Etme
         viewFlipper.setInAnimation(this,R.anim.slide_in_right);
