@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int LOCATION_PERMISSON_REQUEST_CODE = 100;
     LocationHelper locationHelper;
 
-    TextView morninngTextView;
+    TextView morninngTextView, yeniText;
 
     private Handler handler = new Handler();
     private int delay = 10000;
