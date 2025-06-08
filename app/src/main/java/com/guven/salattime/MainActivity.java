@@ -2,7 +2,6 @@ package com.guven.salattime;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -10,7 +9,7 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,6 +24,8 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.io.IOException;
 import java.util.List;
@@ -34,12 +35,15 @@ public class MainActivity extends AppCompatActivity {
 
     private ViewFlipper viewFlipper;
     private ImageButton buttonNext, buttonPrevious;
-    LinearLayout settingsBtn,calendarBtn,compassBtn;
 
     private static final int LOCATION_PERMISSON_REQUEST_CODE = 100;
     LocationHelper locationHelper;
 
     TextView morninngTextView;
+    LinearLayout settingsBtn, homeBtn, calendarBtn, compassBtn;
+
+
+    FrameLayout frameLayout;
 
     private Handler handler = new Handler();
     private int delay = 10000;
@@ -73,21 +77,17 @@ public class MainActivity extends AppCompatActivity {
         buttonNext = findViewById(R.id.imageNext);
         buttonPrevious = findViewById(R.id.imagePervious);
         settingsBtn = findViewById(R.id.settingsBtn);
+        homeBtn = findViewById(R.id.homeBtn);
         calendarBtn = findViewById(R.id.calendarBtn);
         compassBtn = findViewById(R.id.compassBtn);
 
-        settingsBtn.setOnClickListener(v -> {
-            Intent i = new Intent(MainActivity.this,SettingsActivity.class);
-            startActivity(i);
-        });
-        calendarBtn.setOnClickListener(v -> {
-            Intent i = new Intent(MainActivity.this,CalendarActivity.class);
-            startActivity(i);
-        });
-        compassBtn.setOnClickListener(v -> {
-            Intent i = new Intent(MainActivity.this, QiblaActivity.class);
-            startActivity(i);
-        });
+        frameLayout = findViewById(R.id.frame);
+
+        settingsBtn.setOnClickListener(v -> loadFragment(new FragmentSettings(),true));
+        homeBtn.setOnClickListener(v -> loadFragment(new FragmentHome(),true));
+        calendarBtn.setOnClickListener(v -> loadFragment(new FragmentCalendar(),true));
+        compassBtn.setOnClickListener(v -> loadFragment(new FragmentCompass(),true));
+
 
         //Animasyonları set Etme
         viewFlipper.setInAnimation(this,R.anim.slide_in_right);
@@ -133,6 +133,19 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    private void loadFragment(Fragment fragment, boolean b) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if(b){
+            transaction.setCustomAnimations(
+                    R.anim.slide_in_right,
+                    R.anim.slide_out_left
+            );
+        }
+
+        transaction.replace(R.id.frame, fragment);
+        transaction.commit();
     }
 
     @Override

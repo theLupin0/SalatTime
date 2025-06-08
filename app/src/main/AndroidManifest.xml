@@ -17,6 +17,9 @@
         android:theme="@style/Theme.SalatTime"
         tools:targetApi="31">
         <activity
+            android:name=".FragmentCalendar"
+            android:exported="false" />
+        <activity
             android:name=".QiblaActivity"
             android:exported="false" />
         <activity
