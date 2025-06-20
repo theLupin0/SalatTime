@@ -80,7 +80,7 @@
 
                 <TextView
                     android:id="@+id/morning"
-                    android:layout_width="wrap_content"
+                    android:layout_width="250px"
                     android:layout_height="40dp"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
@@ -96,17 +96,18 @@
                     android:layout_height="29dp"
                     android:layout_marginTop="10dp"
                     android:text=":"
+                    android:textColor="#FBFAFA"
                     android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/morningSaat"
-                    android:layout_width="wrap_content"
+                    android:layout_width="250px"
                     android:layout_height="40dp"
                     android:layout_margin="10dp"
                     android:layout_marginLeft="0dp"
                     android:layout_weight="1"
                     android:gravity="center|end"
-                    android:text="TextView"
+                    android:text="Loading..."
                     android:textColor="#F8F6F6"
                     android:textSize="22sp"
                     android:textStyle="bold" />
@@ -120,7 +121,7 @@
 
                 <TextView
                     android:id="@+id/noon"
-                    android:layout_width="wrap_content"
+                    android:layout_width="250px"
                     android:layout_height="40dp"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
@@ -136,17 +137,18 @@
                     android:layout_height="29dp"
                     android:layout_marginTop="10dp"
                     android:text=":"
+                    android:textColor="#FBFAFA"
                     android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/noonSaat"
-                    android:layout_width="wrap_content"
+                    android:layout_width="250px"
                     android:layout_height="40dp"
                     android:layout_margin="10dp"
                     android:layout_marginLeft="0dp"
                     android:layout_weight="1"
                     android:gravity="center|end"
-                    android:text="TextView"
+                    android:text="Loading..."
                     android:textColor="#F8F6F6"
                     android:textSize="22sp"
                     android:textStyle="bold" />
@@ -160,7 +162,7 @@
 
                 <TextView
                     android:id="@+id/afternoon"
-                    android:layout_width="wrap_content"
+                    android:layout_width="250px"
                     android:layout_height="40dp"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
@@ -176,17 +178,18 @@
                     android:layout_height="29dp"
                     android:layout_marginTop="10dp"
                     android:text=":"
+                    android:textColor="#FBFAFA"
                     android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/afternoonSaat"
-                    android:layout_width="wrap_content"
+                    android:layout_width="250px"
                     android:layout_height="40dp"
                     android:layout_margin="10dp"
                     android:layout_marginLeft="0dp"
                     android:layout_weight="1"
                     android:gravity="center|end"
-                    android:text="TextView"
+                    android:text="Loading..."
                     android:textColor="#F8F6F6"
                     android:textSize="22sp"
                     android:textStyle="bold" />
@@ -200,7 +203,7 @@
 
                 <TextView
                     android:id="@+id/evening"
-                    android:layout_width="wrap_content"
+                    android:layout_width="250px"
                     android:layout_height="40dp"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
@@ -216,17 +219,18 @@
                     android:layout_height="29dp"
                     android:layout_marginTop="10dp"
                     android:text=":"
+                    android:textColor="#FBFAFA"
                     android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/eveningSaat"
-                    android:layout_width="wrap_content"
+                    android:layout_width="250px"
                     android:layout_height="40dp"
                     android:layout_margin="10dp"
                     android:layout_marginLeft="0dp"
                     android:layout_weight="1"
                     android:gravity="center|end"
-                    android:text="TextView"
+                    android:text="Loading..."
                     android:textColor="#F8F6F6"
                     android:textSize="22sp"
                     android:textStyle="bold" />
@@ -240,7 +244,7 @@
 
                 <TextView
                     android:id="@+id/aftersubber"
-                    android:layout_width="wrap_content"
+                    android:layout_width="250px"
                     android:layout_height="40dp"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
@@ -256,17 +260,18 @@
                     android:layout_height="29dp"
                     android:layout_marginTop="10dp"
                     android:text=":"
+                    android:textColor="#FBFAFA"
                     android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/aftersubberSaat"
-                    android:layout_width="wrap_content"
+                    android:layout_width="250px"
                     android:layout_height="40dp"
                     android:layout_margin="10dp"
                     android:layout_marginLeft="0dp"
                     android:layout_weight="1"
                     android:gravity="center|end"
-                    android:text="TextView"
+                    android:text="Loading..."
                     android:textColor="#F8F6F6"
                     android:textSize="22sp"
                     android:textStyle="bold" />
@@ -347,7 +352,7 @@
                 android:layout_marginStart="77dp"
                 android:layout_marginBottom="10dp"
                 android:gravity="center"
-                android:text="TextView"
+                android:text="loading..."
                 android:textColor="#F8F6F6"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -361,7 +366,7 @@
                 android:layout_marginEnd="77dp"
                 android:layout_marginBottom="10dp"
                 android:gravity="center"
-                android:text="TextView"
+                android:text="loading..."
                 android:textColor="#F8F6F6"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -425,85 +430,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
-
-            <!-- Her biri ayrı layout olabilir veya direkt TextView -->
-
-            <LinearLayout
-                android:layout_width="280dp"
-                android:layout_height="132dp"
-                android:layout_marginTop="5dp"
-                android:orientation="vertical"
-                android:padding="8dp">
-
-                <TextView
-                    android:id="@+id/verse1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ"
-                    android:textColor="#EAFBFAFA"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/prayer1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    android:text="Allah’ım, bana hidayet ver."
-                    android:textColor="#FDFBFB"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="8dp">
-
-                <TextView
-                    android:id="@+id/verse2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="وَقُل رَّبِّ زِدْنِي عِلْمًا"
-                    android:textColor="#EAFBFAFA"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/prayer2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Rabbim, ilmimi artır."
-                    android:textColor="#FDFBFB"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="8dp">
-
-                <TextView
-                    android:id="@+id/verse3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="فَاذْكُرُونِي أَذْكُرْكُمْ"
-                    android:textColor="#EAFBFAFA"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/prayer3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Beni daima hatırla."
-                    android:textColor="#FDFBFB"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-        </ViewFlipper>
+            app:layout_constraintVertical_bias="0.0"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="180dp"

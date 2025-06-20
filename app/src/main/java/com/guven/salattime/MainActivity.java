@@ -2,13 +2,17 @@ package com.guven.salattime;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Notification;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -27,9 +31,20 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.luckycatlabs.sunrisesunset.SunriseSunsetCalculator;
+
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.time.format.TextStyle;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
+import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int LOCATION_PERMISSON_REQUEST_CODE = 100;
     LocationHelper locationHelper;
 
-    TextView morninngTextView;
+    TextView morninngTextView,morninngSaatView,noonSaatView,noonTextView,eveningSaatView,afternoonSaatView,aftersubberSaatView,afternoonTextView,eveningTextView,aftersubberTextView,sunrise,sunset;
     LinearLayout settingsBtn, homeBtn, calendarBtn, compassBtn;
 
 
@@ -81,17 +96,21 @@ public class MainActivity extends AppCompatActivity {
         calendarBtn = findViewById(R.id.calendarBtn);
         compassBtn = findViewById(R.id.compassBtn);
 
+        sunrise = findViewById(R.id.textView13);
+        sunset = findViewById(R.id.textView16);
+
         frameLayout = findViewById(R.id.frame);
 
         settingsBtn.setOnClickListener(v -> loadFragment(new FragmentSettings(),true));
         homeBtn.setOnClickListener(v -> loadFragment(new FragmentHome(),true));
-        calendarBtn.setOnClickListener(v -> loadFragment(new FragmentCalendar(),true));
         compassBtn.setOnClickListener(v -> loadFragment(new FragmentCompass(),true));
 
 
         //Animasyonları set Etme
         viewFlipper.setInAnimation(this,R.anim.slide_in_right);
         viewFlipper.setOutAnimation(this,R.anim.slide_out_left);
+
+        loadDuasFromAss();
 
         buttonNext.setOnClickListener(v -> {
             viewFlipper.setInAnimation(this,R.anim.slide_in_right);
@@ -119,8 +138,30 @@ public class MainActivity extends AppCompatActivity {
         handler.postDelayed(autoFlipRunnable,delay);
 
         morninngTextView = findViewById(R.id.morning);
-        String morning = getString(R.string.morning);
+        noonTextView = findViewById(R.id.noon);
+        afternoonTextView = findViewById(R.id.afternoon);
+        eveningTextView = findViewById(R.id.evening);
+        aftersubberTextView = findViewById(R.id.aftersubber);
+
+        morninngSaatView = findViewById(R.id.morningSaat);
+        noonSaatView = findViewById(R.id.noonSaat);
+        afternoonSaatView = findViewById(R.id.afternoonSaat);
+        eveningSaatView = findViewById(R.id.eveningSaat);
+        aftersubberSaatView = findViewById(R.id.aftersubberSaat);
+
+
+
+        String morning = "Sabah";
+        String noon = "Öğle";
+        String afternoon = "İkindi";
+        String evening = "Akşam";
+        String aftersubber = "Yatsı";
+
         morninngTextView.setText(morning);
+        noonTextView.setText(noon);
+        afternoonTextView.setText(afternoon);
+        eveningTextView.setText(evening);
+        aftersubberTextView.setText(aftersubber);
 
         //İzin kontrolü
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -133,6 +174,98 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    private void loadDuasFromAss() {
+        try {
+            InputStream i = getAssets().open("ayetler.txt");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(i));
+            ArrayList<String> lines = new ArrayList<>();
+
+            // Tüm satırları oku ve listeye al
+            String line;
+            while ((line = reader.readLine()) != null) {
+                lines.add(line);
+            }
+            reader.close();
+            i.close();
+
+            if (lines.size() == 0) return;
+
+            Random random = new Random();
+            int startIndex = random.nextInt(lines.size());
+
+            // ViewFlipper içeriğini temizle
+            viewFlipper.removeAllViews();
+
+            // Döngüyü startIndex'ten başlat, sonuna gelince başa dön (dairesel)
+            for (int k = 0; k < lines.size(); k++) {
+                int idx = (startIndex + k) % lines.size();
+                String currentLine = lines.get(idx);
+
+                String[] parts = currentLine.split("\\|");
+                if (parts.length == 3) {
+                    String id = parts[0].trim();
+                    String verse = parts[1].trim();
+                    String no = parts[2].trim();
+
+                    LinearLayout layout = new LinearLayout(this);
+                    layout.setOrientation(LinearLayout.VERTICAL);
+                    layout.setPadding(8, 8, 8, 8);
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                    );
+                    layout.setLayoutParams(layoutParams);
+
+                    TextView idText = new TextView(this);
+                    idText.setText(id);
+                    idText.setTextColor(Color.parseColor("#EAFBFAFA"));
+                    idText.setTextSize(16);
+                    idText.setGravity(Gravity.CENTER);
+                    layout.addView(idText);
+
+                    TextView verseText = new TextView(this);
+                    verseText.setText(verse);
+                    verseText.setTextColor(Color.parseColor("#FDFBFB"));
+                    verseText.setTextSize(12);
+                    verseText.setGravity(Gravity.CENTER);
+                    verseText.setPadding(0, 8, 0, 0);
+                    verseText.setSingleLine(false);
+                    layout.addView(verseText);
+
+                    TextView noText = new TextView(this);
+                    noText.setText(no);
+                    noText.setTextColor(Color.parseColor("#FDFBFBAE"));
+                    noText.setTextSize(9);
+                    noText.setGravity(Gravity.CENTER);
+                    layout.addView(noText);
+
+                    viewFlipper.addView(layout);
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Hata", Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+    private void calculateSunTimes(double latitude, double longitude) {
+        com.luckycatlabs.sunrisesunset.dto.Location location = new com.luckycatlabs.sunrisesunset.dto.Location(
+                String.valueOf(latitude),
+                String.valueOf(longitude)
+        );
+
+        SunriseSunsetCalculator calculator =
+                new SunriseSunsetCalculator(location,TimeZone.getDefault());
+
+        String sunriseTime = calculator.getOfficialSunriseForDate(Calendar.getInstance());
+        String sunsetTime = calculator.getOfficialSunsetForDate(Calendar.getInstance());
+
+        sunrise.setText(sunriseTime);
+        sunset.setText(sunsetTime);
     }
 
     private void loadFragment(Fragment fragment, boolean b) {
@@ -175,35 +308,32 @@ public class MainActivity extends AppCompatActivity {
             Log.d("SALATTIME", "Konum alındı: Latitude = " + latitude + ", Longitude = " + longitude);
 
             //Ülke Adı Al
+
             String country = getCountryName(latitude,longitude);
             Log.d("SalatTime" , "Ulke: " + country);
 
-            //Dil
-            String language = "tr";
+            SharedPreferences prefs = getSharedPreferences("salat_prefs", MODE_PRIVATE);
+            prefs.edit()
+                    .putFloat("latitude", (float) latitude)
+                    .putFloat("longitude", (float) longitude)
+                    .apply();
 
+            String language;
+            if (country.equals("Turkey")){
+                language = "tr";
+            }else {
+                language = "en";
+            }
             // Namaz vakitlerini çek
             PrayerTimesFetcher fetcher = new PrayerTimesFetcher();
-            fetcher.fetchPrayerTimes(latitude, longitude,country ,language,new PrayerTimesFetcher.PrayerTimesCallback() {
+            fetcher.fetchPrayerTimes(MainActivity.this,latitude, longitude, language, new PrayerTimesFetcher.PrayerTimesCallback() {
                 @Override
                 public void onSuccess(String fajr, String dhuhr, String asr, String maghrib, String isha) {
-                    // Gelen namaz vakitlerini ekrana yazdır (şimdilik Toast ile)
-                    String message;
-                    if(country.equals("Turkey")){
-                        message = "Namaz Vakitleri:\n"
-                                + "İmsak: " + fajr + "\n"
-                                + "Öğle: " + dhuhr + "\n"
-                                + "İkindi: " + asr + "\n"
-                                + "Akşam: " + maghrib + "\n"
-                                + "Yatsı: " + isha;
-                    }else {
-                        message = "Namaz Vakitleri:\n"
-                                + "Fajr: " + fajr + "\n"
-                                + "Dhuhr: " + dhuhr + "\n"
-                                + "Asr: " + asr + "\n"
-                                + "Maghrib: " + maghrib + "\n"
-                                + "Isha: " + isha;
-                    }
-                    Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+                    morninngSaatView.setText(fajr);
+                    noonSaatView.setText(dhuhr);
+                    afternoonSaatView.setText(asr);
+                    eveningSaatView.setText(maghrib);
+                    aftersubberSaatView.setText(isha);
                 }
 
                 @Override
@@ -211,6 +341,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Namaz vakitleri alınamadı: " + errorMessage, Toast.LENGTH_LONG).show();
                 }
             });
+            calculateSunTimes(latitude,longitude);
         });
     }
 
@@ -241,4 +372,5 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
 }

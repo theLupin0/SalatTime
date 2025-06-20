@@ -19,39 +19,16 @@
         app:layout_constraintVertical_bias="0.502"
         app:srcCompat="@drawable/backgroun2" />
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="316dp"
-        android:layout_height="46dp"
-        android:layout_margin="16dp"
-        android:layout_marginStart="118dp"
-        android:layout_marginEnd="118dp"
-        android:background="@drawable/edittext"
-        android:elevation="2dp"
-        android:hint="Name"
-        android:inputType="text"
-        android:padding="12dp"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#A5FDFDFD"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.597"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.134" />
-
     <AutoCompleteTextView
         android:id="@+id/editText2"
         android:layout_width="316dp"
         android:layout_height="46dp"
         android:layout_margin="16dp"
         android:layout_marginStart="118dp"
-        android:layout_marginTop="70dp"
         android:layout_marginEnd="118dp"
         android:background="@drawable/edittext"
         android:elevation="2dp"
-        android:hint="Country"
+        android:hint="Your Country or Other"
         android:inputType="text"
         android:padding="12dp"
         android:textColor="#FFFFFF"
@@ -59,33 +36,10 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.597"
+        app:layout_constraintHorizontal_bias="0.572"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
-        app:layout_constraintVertical_bias="0.076" />
-
-    <EditText
-        android:id="@+id/editTextBirthday"
-        android:layout_width="316dp"
-        android:layout_height="46dp"
-        android:layout_margin="16dp"
-        android:layout_marginStart="118dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginEnd="118dp"
-        android:background="@drawable/edittext_birthday"
-        android:focusable="true"
-        android:hint="Birthday:DD/MM/YYYY"
-        android:inputType="number"
-        android:padding="12dp"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#9EFDFDFD"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.641"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2"
-        app:layout_constraintVertical_bias="0.105" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.123" />
 
     <TextView
         android:id="@+id/typewriterTextView"
@@ -102,16 +56,17 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.577" />
+        app:layout_constraintVertical_bias="0.458" />
 
     <TextView
         android:id="@+id/typewriterTextView2"
         android:layout_width="313dp"
         android:layout_height="137dp"
         android:layout_margin="16dp"
+        android:layout_marginBottom="160dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:gravity="center"
@@ -121,10 +76,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/typewriterTextView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.21" />
 
     <Button
         android:id="@+id/button3"

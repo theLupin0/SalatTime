@@ -30,7 +30,7 @@ import java.util.Locale;
 
 public class InfoActivity extends AppCompatActivity {
 
-    EditText editTextBirthday,nameEditText;
+   // EditText editTextBirthday;
     AutoCompleteTextView countryEditText;
     Button submit;
 
@@ -57,9 +57,8 @@ public class InfoActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences("myPrefs",MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
-        editTextBirthday = findViewById(R.id.editTextBirthday);
+
         submit = findViewById(R.id.button3);
-        nameEditText = findViewById(R.id.editText);
         countryEditText = findViewById(R.id.editText2);
 
         textView = findViewById(R.id.typewriterTextView);
@@ -69,7 +68,7 @@ public class InfoActivity extends AppCompatActivity {
         startTypewriterEffectEnglish();
         handler.post(englishRepeater);
 
-        editTextBirthday.addTextChangedListener(new TextWatcher() {
+    /*    editTextBirthday.addTextChangedListener(new TextWatcher() {
             private boolean isFormatting;
 
             @Override
@@ -100,7 +99,7 @@ public class InfoActivity extends AppCompatActivity {
 
                 isFormatting = false;
             }
-        });
+        });*/
 
         //Country Secimi
         String [] countries = Locale.getISOCountries();
@@ -117,6 +116,8 @@ public class InfoActivity extends AppCompatActivity {
         //Turkey ekleme
         if(!countryList.contains("Turkey")){
             countryList.add("Turkey");
+            countryList.add("England");
+            countryList.add("Other");
         }
 
         Collections.sort(countryList); // Alfabetik Sıralama
@@ -132,15 +133,11 @@ public class InfoActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (nameEditText.getText().toString().trim().isEmpty() ||
-                    countryEditText.getText().toString().trim().isEmpty() ||
-                    editTextBirthday.getText().toString().trim().isEmpty()){
-                    Toast.makeText(InfoActivity.this,"Please fill in the fields!" , Toast.LENGTH_LONG).show();
+                if (countryEditText.getText().toString().trim().isEmpty()){
+                    Toast.makeText(InfoActivity.this,"Please fill in the field!" , Toast.LENGTH_LONG).show();
                 }else{
                     String selectedCountry = countryEditText.getText().toString().trim();
-                    editor.putString("name", nameEditText.getText().toString().trim());
                     editor.putString("country",selectedCountry);
-                    editor.putString("birthday",editTextBirthday.getText().toString().trim());
                     editor.apply();
                     Intent i = new Intent(InfoActivity.this, MainActivity.class);
                     startActivity(i);

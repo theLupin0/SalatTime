@@ -10,6 +10,7 @@
         android:layout_width="460dp"
         android:layout_height="1029dp"
         android:background="#0C2826"
+        android:scrollbarSize="14dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.507"
@@ -19,35 +20,20 @@
         app:srcCompat="@drawable/background" />
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteY="10dp">
-
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_profile" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="TextView"
-            android:textColor="#E45C5C"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
+        tools:layout_editor_absoluteY="10dp" />
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="250dp"
+        android:gravity="center"
         android:orientation="vertical"
         android:padding="15dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,47 +41,54 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/editTextText"
+        <AutoCompleteTextView
+            android:id="@+id/countryeditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:background="@drawable/edittext"
-            android:textSize="20sp"
-            android:textColor="#ffff"
-            android:padding="10dp"
-            android:inputType="text"
-            android:hint="Name"
-            android:textColorHint="#992A2A27"/>
-
-        <EditText
-            android:layout_marginTop="10dp"
-            android:id="@+id/countryeditTextText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:background="@drawable/edittext"
-            android:textSize="20sp"
-            android:textColor="#ffff"
-            android:padding="10dp"
-            android:inputType="text"
-            android:hint="Country"
-            android:textColorHint="#992A2A27"/>
-
-        <EditText
-            android:id="@+id/editTextBirthday"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
             android:layout_marginTop="10dp"
             android:background="@drawable/edittext"
-            android:textSize="20sp"
-            android:textColor="#ffff"
-            android:padding="10dp"
+            android:elevation="2dp"
+            android:hint="Your Country or Other"
             android:inputType="text"
-            android:hint="Birthday"
-            android:textColorHint="#992A2A27"/>
+            android:padding="10dp"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#992A2A27"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.597"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText"
+            app:layout_constraintVertical_bias="0.076" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittext"
+            android:hapticFeedbackEnabled="false"
+            android:text="Submit"
+            android:textColor="#FFFFFF"
+            android:textColorLink="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/typewriterTextView2"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/typewriterTextView2"
+            app:layout_constraintVertical_bias="0.044" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="For Language "
+        android:textColor="#FAF7F7"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
