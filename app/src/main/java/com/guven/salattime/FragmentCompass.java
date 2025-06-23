@@ -8,6 +8,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +22,11 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.Priority;
 
 public class FragmentCompass extends Fragment implements SensorEventListener {
 
@@ -29,6 +34,8 @@ public class FragmentCompass extends Fragment implements SensorEventListener {
     private SensorManager sensorManager;
     private Sensor accelerometer;
     private Sensor magnetometer;
+    private FusedLocationProviderClient fusedLocationClient;
+    private LocationCallback locationCallback;
     private float[] gravity;
     private float[] geomagnetic;
 
@@ -49,10 +56,39 @@ public class FragmentCompass extends Fragment implements SensorEventListener {
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
 
-        // SharedPreferences'dan konumu al
-        SharedPreferences prefs = requireActivity().getSharedPreferences("salat_prefs", Context.MODE_PRIVATE);
-        userLatitude = prefs.getFloat("latitude", 0f);
-        userLongitude = prefs.getFloat("longitude", 0f);
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
+
+        LocationRequest locationRequest = new LocationRequest.Builder(
+                Priority.PRIORITY_HIGH_ACCURACY, 5000L)
+                .setMinUpdateIntervalMillis(2000L)
+                .build();
+
+        locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(@NonNull LocationResult locationResult) {
+                if (locationResult == null) return;
+                Location location = locationResult.getLastLocation();
+                if (location != null) {
+                    userLatitude = location.getLatitude();
+                    userLongitude = location.getLongitude();
+                }
+            }
+        };
+
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, requireActivity().getMainLooper());
+        } else {
+            Toast.makeText(getContext(), "Konum izni gerekli", Toast.LENGTH_SHORT).show();
+        }
+
+
+// Konum izni kontrolü
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, requireActivity().getMainLooper());
+        } else {
+            Toast.makeText(getContext(), "Konum izni gerekli", Toast.LENGTH_SHORT).show();
+        }
+
 
         // Eğer konum 0 ise kullanıcıdan al
         if (userLatitude == 0f && userLongitude == 0f) {
@@ -97,7 +133,11 @@ public class FragmentCompass extends Fragment implements SensorEventListener {
     public void onPause() {
         super.onPause();
         sensorManager.unregisterListener(this);
+        if (fusedLocationClient != null && locationCallback != null) {
+            fusedLocationClient.removeLocationUpdates(locationCallback);
+        }
     }
+
 
     private void showToast(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
@@ -151,7 +191,7 @@ public class FragmentCompass extends Fragment implements SensorEventListener {
 
             // Başlangıçta cihaz yatay değilse uyar
             if (!isHorizontal && tiltDegrees > 70) {
-                showToast("Lütfen cihazı yatay tutun");
+                showToast("Lütfen cihazı düz bir zemine yatay şekilde koyun");
                 isHorizontal = true;
                 tiltWarningShown = false;
             }
@@ -162,24 +202,31 @@ public class FragmentCompass extends Fragment implements SensorEventListener {
                 tiltWarningShown = true;
             }
 
-            // Kompas yönünü hesapla ve görüntüyü döndür
             float[] R = new float[9];
+            float[] remappedR = new float[9];
             float[] orientation = new float[3];
             boolean success = SensorManager.getRotationMatrix(R, null, gravity, geomagnetic);
             if (success) {
-                SensorManager.getOrientation(R, orientation);
+                // Telefon dikey tutuluyorsa eksenleri dönüştür
+                SensorManager.remapCoordinateSystem(
+                        R,
+                        SensorManager.AXIS_Y,  // Yeni X ekseni (ekranın yukarı yönü)
+                        SensorManager.AXIS_MINUS_X,  // Yeni Y ekseni (ekranın sağı)
+                        remappedR);
+
+                SensorManager.getOrientation(remappedR, orientation);
                 float azimuth = (float) Math.toDegrees(orientation[0]);
                 azimuth = (azimuth + 360) % 360;
 
                 float qiblaAngle = QiblaUtils.calculateQiblaDirection(userLatitude, userLongitude);
                 float targetRotation = (qiblaAngle - azimuth + 360) % 360;
 
-                // Yumuşak dönüş
                 currentCompassRotation = smoothRotation(currentCompassRotation, targetRotation);
                 compassImageView.setRotation(currentCompassRotation);
             }
         }
     }
+
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {}

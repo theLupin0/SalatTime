@@ -51,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:gravity="center|start"
-                android:text="Erzurum"
+                android:text="loading..."
                 android:textColor="#FBFBFB" />
 
         </LinearLayout>
@@ -321,7 +321,7 @@
                 android:layout_marginStart="77dp"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:text="Sunrise"
+                android:text="Güneş"
                 android:textColor="#F8F6F6"
                 android:textSize="12sp"
                 android:textStyle="bold"
@@ -337,7 +337,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="77dp"
                 android:gravity="center"
-                android:text="Sunset"
+                android:text="Gün Batımı"
                 android:textColor="#F8F6F6"
                 android:textSize="12sp"
                 android:textStyle="bold"
@@ -383,7 +383,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginTop="60dp"
             android:gravity="center"
-            android:text="Currnet Date"
+            android:text="Tarih"
             android:textColor="#FDFDFD"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -480,7 +480,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:gravity="center"
-                    android:text="Settings"
+                    android:text="Ayarlar"
                     android:textColor="#FDFBFB"
                     android:textSize="13sp"
                     android:textStyle="bold" />
@@ -491,7 +491,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:gravity="center"
-                    android:text="Calendar"
+                    android:text="Tarih"
                     android:textColor="#FDFBFB"
                     android:textSize="13sp"
                     android:textStyle="bold" />
@@ -502,7 +502,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:gravity="center"
-                    android:text="Home"
+                    android:text="Namaz"
                     android:textColor="#FDFBFB"
                     android:textSize="13sp"
                     android:textStyle="bold" />
@@ -513,7 +513,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:gravity="center"
-                    android:text="Qibla"
+                    android:text="Kıble"
                     android:textColor="#FDFBFB"
                     android:textSize="13sp"
                     android:textStyle="bold" />

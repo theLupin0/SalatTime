@@ -69,6 +69,7 @@ public class FragmentSettings extends Fragment {
             public void onClick(View v) {
                 if(!country.getText().toString().trim().isEmpty()){
                     editor.putString("country",country.getText().toString().trim());
+                    editor.apply();
                     Toast.makeText(getContext(),"Bilgileriniz Güncellendi",Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getContext(),"Bilgi girilmedi",Toast.LENGTH_LONG).show();

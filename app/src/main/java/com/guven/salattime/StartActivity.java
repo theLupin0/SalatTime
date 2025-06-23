@@ -41,10 +41,10 @@ public class StartActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
 
         //İlk giriş kontrolü
-       /* if(!firstTime){
+        if(!firstTime){
             startActivity(new Intent(this, MainActivity.class));
             finish();
-        }*/
+        }
 
         manBtn = findViewById(R.id.manButton);
         womanBtn = findViewById(R.id.womanButton);

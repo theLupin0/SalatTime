@@ -27,8 +27,8 @@
 
     <ImageView
         android:id="@+id/compassImageView"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_width="241dp"
+        android:layout_height="243dp"
         android:layout_gravity="center"
         android:layout_marginTop="204dp"
         android:src="@drawable/compass_arrow"
@@ -38,12 +38,29 @@
 
     <ImageView
         android:id="@+id/imageView8"
-        android:layout_width="57dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="100dp"
+        android:layout_width="89dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="80dp"
         app:layout_constraintBottom_toTopOf="@+id/compassImageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/qiblaa" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="156dp"
+        android:gravity="center"
+        android:text="Uygulama, mümkün olan en doğru yönü göstermeye çalışır.\n Eğer pusula beklediğiniz gibi çalışmıyorsa,\n uygulamayı kapatıp yeniden açarak tekrar deneyin."
+        android:textColor="#8FFDFBFB"
+        android:textSize="12sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/compassImageView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

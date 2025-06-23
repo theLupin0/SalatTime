@@ -36,6 +36,9 @@
         android:layout_marginTop="408dp"
         android:background="#00A62727"
         android:backgroundTint="#00D9BBBB"
+        android:gravity="center|right"
+        android:textColor="#30FFFFFF"
+        android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

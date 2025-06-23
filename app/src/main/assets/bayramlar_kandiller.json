@@ -1,0 +1,41 @@
+{
+  "2025": {
+    "ramazan_baslangici": "01.03.2025",
+    "bayramlar": {
+      "Ramazan Bayramı": "31.03.2025",
+      "Kurban Bayramı": "06.06.2025"
+    },
+    "kandiller": {
+      "Regaib Kandili": "02.01.2025",
+      "Miraç Kandili": "31.01.2025",
+      "Berat Kandili": "14.02.2025",
+      "Mevlid Kandili": "04.09.2025"
+    }
+  },
+  "2026": {
+    "ramazan_baslangici": "18.02.2026",
+    "bayramlar": {
+      "Ramazan Bayramı": "20.03.2026",
+      "Kurban Bayramı": "27.05.2026"
+    },
+    "kandiller": {
+      "Regaib Kandili": "22.01.2026",
+      "Miraç Kandili": "19.02.2026",
+      "Berat Kandili": "05.03.2026",
+      "Mevlid Kandili": "25.08.2026"
+    }
+  },
+  "2027": {
+    "ramazan_baslangici": "08.02.2027",
+    "bayramlar": {
+      "Ramazan Bayramı": "10.03.2027",
+      "Kurban Bayramı": "17.05.2027"
+    },
+    "kandiller": {
+      "Regaib Kandili": "11.01.2027",
+      "Miraç Kandili": "08.02.2027",
+      "Berat Kandili": "22.02.2027",
+      "Mevlid Kandili": "14.08.2027"
+    }
+  }
+}

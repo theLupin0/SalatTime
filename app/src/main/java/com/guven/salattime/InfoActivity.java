@@ -38,7 +38,7 @@ public class InfoActivity extends AppCompatActivity {
     private Handler handler = new Handler();
     private Handler handler1 = new Handler();
     private String fullText = "'وَلِكُلٍّ وِجْهَةٌ هُوَ مُوَلّ۪يهَا فَاسْتَبِقُوا الْخَيْرَاتِۜ اَيْنَ مَا تَكُونُوا يَأْتِ بِكُمُ اللّٰهُ جَم۪يعًاۜ اِنَّ اللّٰهَ عَلٰى كُلِّ شَيْءٍ قَد۪يرٌ'";
-    private String fullText2 = "'For every nation is a direction to which it faces (in prayer). So race to [all that is] good. Wherever you may be, Allah will bring you forth [for judgment] all together. Indeed, Allah is over all things competent.'";
+    private String fullText2 = "'Her ümmetin yöneldiği bir yönü vardır. Haydi, hayırlara koşun. Nerede olursanız olun, Allah hepinizi topyekûn (hesap için) getirir. Şüphesiz Allah her şeye kadirdir.'";
     private int index = 0,index1=0;
     private long typingDelay = 100; // Her harf gecikmesi
 

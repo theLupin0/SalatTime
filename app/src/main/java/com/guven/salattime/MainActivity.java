@@ -30,6 +30,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+import androidx.work.WorkRequest;
 
 import com.luckycatlabs.sunrisesunset.SunriseSunsetCalculator;
 
@@ -45,6 +48,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int LOCATION_PERMISSON_REQUEST_CODE = 100;
     LocationHelper locationHelper;
 
-    TextView morninngTextView,morninngSaatView,noonSaatView,noonTextView,eveningSaatView,afternoonSaatView,aftersubberSaatView,afternoonTextView,eveningTextView,aftersubberTextView,sunrise,sunset;
+    TextView dereceTextView,morninngTextView,morninngSaatView,noonSaatView,noonTextView,eveningSaatView,afternoonSaatView,aftersubberSaatView,afternoonTextView,eveningTextView,aftersubberTextView,sunrise,sunset,cityTextView;
     LinearLayout settingsBtn, homeBtn, calendarBtn, compassBtn;
 
 
@@ -95,15 +99,16 @@ public class MainActivity extends AppCompatActivity {
         homeBtn = findViewById(R.id.homeBtn);
         calendarBtn = findViewById(R.id.calendarBtn);
         compassBtn = findViewById(R.id.compassBtn);
-
+        cityTextView = findViewById(R.id.textView2);
         sunrise = findViewById(R.id.textView13);
         sunset = findViewById(R.id.textView16);
-
+        dereceTextView = findViewById(R.id.textView9);
         frameLayout = findViewById(R.id.frame);
 
         settingsBtn.setOnClickListener(v -> loadFragment(new FragmentSettings(),true));
         homeBtn.setOnClickListener(v -> loadFragment(new FragmentHome(),true));
         compassBtn.setOnClickListener(v -> loadFragment(new FragmentCompass(),true));
+        calendarBtn.setOnClickListener(v -> loadFragment(new FragmentCalendar(),true));
 
 
         //Animasyonları set Etme
@@ -162,6 +167,13 @@ public class MainActivity extends AppCompatActivity {
         afternoonTextView.setText(afternoon);
         eveningTextView.setText(evening);
         aftersubberTextView.setText(aftersubber);
+
+        WorkRequest workRequest = new PeriodicWorkRequest.Builder(WeatherWorker.class,2, TimeUnit.MINUTES).build();
+        WorkManager.getInstance(this).enqueue(workRequest);
+
+        SharedPreferences weatherPrefs = getSharedPreferences("weather_prefs", MODE_PRIVATE);
+        String derece = weatherPrefs.getString("current_temp", "—°C"); // Eğer veri yoksa boş göster
+        dereceTextView.setText(derece);
 
         //İzin kontrolü
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -251,6 +263,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateTemperatureDisplay();
+    }
+
+    private void updateTemperatureDisplay() {
+        SharedPreferences prefs = getSharedPreferences("weather_prefs", MODE_PRIVATE);
+        String degree = prefs.getString("current_temp", "—°C");
+        dereceTextView.setText(degree);
+    }
+
+
 
     private void calculateSunTimes(double latitude, double longitude) {
         com.luckycatlabs.sunrisesunset.dto.Location location = new com.luckycatlabs.sunrisesunset.dto.Location(
@@ -310,7 +335,7 @@ public class MainActivity extends AppCompatActivity {
             //Ülke Adı Al
 
             String country = getCountryName(latitude,longitude);
-            Log.d("SalatTime" , "Ulke: " + country);
+            Log.d("SalatTime" , "Ulke: " + country + " Sehir:" +getCityName(latitude,longitude));
 
             SharedPreferences prefs = getSharedPreferences("salat_prefs", MODE_PRIVATE);
             prefs.edit()
@@ -342,7 +367,32 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
             calculateSunTimes(latitude,longitude);
+
+            String city = getCityName(latitude,longitude);
+            cityTextView.setText(city);
         });
+    }
+
+    private String getCityName(double latitude, double longitude) {
+        Geocoder geocoder = new Geocoder(this,Locale.getDefault());
+        try{
+            List<Address> addresses = geocoder.getFromLocation(latitude,longitude,1);
+            if (addresses != null && !addresses.isEmpty()){
+                Address address = addresses.get(0);
+                String city = address.getLocality();
+
+                if (city == null) {
+                    city = address.getSubAdminArea();
+                }
+                if (city == null) {
+                    city = address.getAdminArea();
+                }
+                return city != null ? city : "Bilinmeyen Şehir";
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public String getCountryName(double latitude, double longitude) {
